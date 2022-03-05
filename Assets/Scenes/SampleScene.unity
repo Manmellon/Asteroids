@@ -422,10 +422,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2091954d589adbc4f980a6509a96c32c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 10
+  _maxSpeed: 8
   _minSpeed: 0
-  _speed: 0
-  _maxAccel: 0.05
-  _maxRotation: 0.5
+  _speedVector: {x: 0, y: 0, z: 0}
+  _maxAccel: 0.01
+  _maxRotation: 0.25
   _playerInput: {fileID: 838582018}
-  _slowdown: 0.5
+  _slowdown: 0

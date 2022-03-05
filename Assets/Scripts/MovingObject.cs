@@ -7,7 +7,8 @@ public class MovingObject : MonoBehaviour
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _minSpeed;
 
-    [SerializeField] private float _speed;
+    //[SerializeField] private float _speed;
+    [SerializeField] private Vector3 _speedVector;
 
     [SerializeField] private float _maxAccel;
     [SerializeField] private float _maxRotation;
@@ -15,12 +16,14 @@ public class MovingObject : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position += transform.up * _speed * Time.fixedDeltaTime;
+        //transform.position += transform.up * _speed * Time.fixedDeltaTime;
+        transform.position += _speedVector * Time.fixedDeltaTime;
     }
 
-    public void Accel(float acceleration)
+    private void LimitSpeed()
     {
-        _speed += acceleration * _maxAccel;
+        float _speed = _speedVector.magnitude;
+
         if (_speed > _maxSpeed)
         {
             _speed = _maxSpeed;
@@ -29,6 +32,25 @@ public class MovingObject : MonoBehaviour
         {
             _speed = _minSpeed;
         }
+
+        _speedVector.Normalize();
+        _speedVector *= _speed;
+    }
+
+    public void AccelToCurrentDirection(float acceleration)
+    {
+        float _speed = _speedVector.magnitude;
+
+        _speed += acceleration * _maxAccel;
+
+        LimitSpeed();    
+    }
+
+    public void Accel(Vector3 accelVector)
+    {
+        _speedVector += accelVector.normalized * _maxAccel;
+
+        LimitSpeed();
     }
 
     public void Rotate(float angle)

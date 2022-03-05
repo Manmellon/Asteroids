@@ -25,17 +25,19 @@ public class Spaceship : MovingObject
     // Update is called once per frame
     void Update()
     {
-        Vector2 movingVector = _moveAction.ReadValue<Vector2>();
-        Debug.Log(movingVector);
+        Vector2 moveActionVector = _moveAction.ReadValue<Vector2>();
+        //Debug.Log(moveActionVector);
 
-        if (movingVector.y > 0.0f)
+        if (moveActionVector.y > 0.0f)
         {
-            Accel(movingVector.y);
+            //Accel(moveActionVector.y);
+            //Debug.Log(transform.up * moveActionVector.y);
+            Accel(transform.up * moveActionVector.y);
         }
 
-        Accel(- _slowdown);
+        //Accel(- _slowdown);
 
-        Rotate(- movingVector.x);
+        Rotate(- moveActionVector.x);
     }
     
     public void ControlsMove(InputAction.CallbackContext context)
