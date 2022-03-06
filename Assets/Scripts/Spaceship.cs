@@ -11,12 +11,18 @@ public class Spaceship : MovingObject
 
     [SerializeField] private Animator _animator;
 
+    [SerializeField] private Bullet _bulletPrefab;
+
     private InputAction _moveAction;
+    private InputAction _fireAction;
 
     // Start is called before the first frame update
     void Start()
     {
         _moveAction = _playerInput.actions["Move"];
+        _fireAction = _playerInput.actions["Fire"];
+
+        _fireAction.performed += (context) => { Fire(context); };
     }
 
     // Update is called once per frame
@@ -38,14 +44,15 @@ public class Spaceship : MovingObject
             _animator.SetBool("EnabledEngine", false);
         }
 
-        //Accel(- _slowdown);
+        //AccelToCurrentDirection(- _slowdown);
 
         Rotate(- moveActionVector.x);
     }
     
-    public void ControlsMove(InputAction.CallbackContext context)
+    public void Fire(InputAction.CallbackContext context)
     {
-        
+        Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
+        bullet.Init(transform.up);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -54,10 +61,5 @@ public class Spaceship : MovingObject
         {
             GameManager.Instance.GameOver();
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        
     }
 }

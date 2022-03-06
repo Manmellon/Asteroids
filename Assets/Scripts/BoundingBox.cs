@@ -30,6 +30,11 @@ public class BoundingBox : MonoBehaviour
 
         //Debug.Log(collider.transform.position.y + " ? " + Box.bounds.max.y);
 
+        if (collider.gameObject.tag == "Bullet")
+        {
+            Destroy(collider.gameObject);
+        }
+
         if (collider.transform.position.x < Box.bounds.min.x)
         {
             collider.transform.position = new Vector3(Box.bounds.max.x, collider.transform.position.y, collider.transform.position.z);
