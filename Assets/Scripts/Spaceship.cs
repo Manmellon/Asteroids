@@ -13,16 +13,24 @@ public class Spaceship : MovingObject
 
     [SerializeField] private Bullet _bulletPrefab;
 
+    [SerializeField] private LineRenderer _lineRenderer;
+
     private InputAction _moveAction;
     private InputAction _fireAction;
+    private InputAction _laserAction;
+
+    private const float LASER_DISTANCE = 100.0f;
+    private const float LASER_DISAPPEAR_TIME = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
         _moveAction = _playerInput.actions["Move"];
         _fireAction = _playerInput.actions["Fire"];
+        _laserAction = _playerInput.actions["Laser"];
 
         _fireAction.performed += (context) => { Fire(context); };
+        _laserAction.performed += (context) => { Laser(context); };
     }
 
     // Update is called once per frame
@@ -53,6 +61,34 @@ public class Spaceship : MovingObject
     {
         Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
         bullet.Init(transform.up);
+    }
+
+    public void Laser(InputAction.CallbackContext context)
+    {
+        //Debug.Log("Laser");
+
+        _lineRenderer.enabled = true;
+        _lineRenderer.SetPosition(0, transform.position);
+        _lineRenderer.SetPosition(1, transform.position + transform.up * LASER_DISTANCE);
+
+        StartCoroutine("DisableLaser");
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, transform.up, LASER_DISTANCE);
+
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Debug.Log(hits[i].collider.tag);
+            if (hits[i].collider.tag == "Asteroid" || hits[i].collider.tag == "UFO")
+            {
+                Destroy(hits[i].collider.gameObject);
+            }
+        }
+    }
+
+    private IEnumerator DisableLaser()
+    {
+        yield return new WaitForSeconds(LASER_DISAPPEAR_TIME);
+        _lineRenderer.enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

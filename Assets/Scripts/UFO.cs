@@ -15,7 +15,7 @@ public class UFO : MovingObject
     // Update is called once per frame
     void Update()
     {
-        SetSpeedVector(_spaceship.transform.position - transform.position);
+        SetSpeedVector((_spaceship.transform.position - transform.position) * MaxSpeed);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
