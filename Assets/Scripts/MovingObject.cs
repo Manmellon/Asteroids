@@ -13,22 +13,11 @@ public class MovingObject : MonoBehaviour
     [SerializeField] private float _maxAccel;
     [SerializeField] private float _maxRotation;
 
-    [SerializeField] private Collider2D _collider;
-    [SerializeField] private BoxCollider2D _boundingBox;
-
     // Update is called once per frame
     void FixedUpdate()
     {
         //transform.position += transform.up * _speed * Time.fixedDeltaTime;
         transform.position += _speedVector * Time.fixedDeltaTime;
-
-        /*if (! _collider.IsTouching(_boundingBox))
-        {
-            if (transform.position.x < _boundingBox.transform.position.x)
-            {
-                transform.position = new Vector3(_boundingBox.transform.position.x + _boundingBox.);
-            }
-        }*/
     }
 
     private void LimitSpeed()

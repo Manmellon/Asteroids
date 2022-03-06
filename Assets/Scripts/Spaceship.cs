@@ -5,9 +5,11 @@ using UnityEngine.InputSystem;
 
 public class Spaceship : MovingObject
 {
-    [SerializeField] PlayerInput _playerInput;
+    [SerializeField] private PlayerInput _playerInput;
 
     [SerializeField] private float _slowdown;
+
+    [SerializeField] private Animator _animator;
 
     private InputAction _moveAction;
 
@@ -33,6 +35,12 @@ public class Spaceship : MovingObject
             //Accel(moveActionVector.y);
             //Debug.Log(transform.up * moveActionVector.y);
             Accel(transform.up * moveActionVector.y);
+
+            _animator.SetBool("EnabledEngine", true);
+        }
+        else
+        {
+            _animator.SetBool("EnabledEngine", false);
         }
 
         //Accel(- _slowdown);
