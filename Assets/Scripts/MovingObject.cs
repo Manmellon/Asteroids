@@ -46,6 +46,11 @@ public class MovingObject : MonoBehaviour
         _speedVector *= _speed;
     }
 
+    public void SetMaxSpeed(float newMaxSpeed)
+    {
+        _maxSpeed = newMaxSpeed;
+    }
+
     public void SetSpeedVector(Vector3 newSpeedVector)
     {
         _speedVector = newSpeedVector;

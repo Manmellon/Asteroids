@@ -10,12 +10,39 @@ public class Asteroid : MovingObject
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] Collider2D _collider;
 
+    private int _size;
+
     // Start is called before the first frame update
     void Start()
     {
-        int r = Random.Range(0, _asteroidSprites.Length);
-        _spriteRenderer.sprite = _asteroidSprites[r];
+        
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void Init(int size)
+    {
+        //int r_size = Random.Range(0, 2);
+        //_size = r_size;
+        _size = size;
+
+        if (_size > 0)
+        {
+            int r = Random.Range(0, _asteroidSprites.Length);
+            _spriteRenderer.sprite = _asteroidSprites[r];
+        }
+
+        else
+        {
+            int r = Random.Range(0, _asteroidFragmentSprites.Length);
+            _spriteRenderer.sprite = _asteroidFragmentSprites[r];
+        }
+
+        Destroy(_collider);
         _collider = gameObject.AddComponent<BoxCollider2D>();
 
         float angle = Random.Range(0.0f, 360.0f);
@@ -24,9 +51,20 @@ public class Asteroid : MovingObject
         SetSpeedVector(randomDirection * MaxSpeed);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter2D(Collision2D other)
     {
-        
+        if (other.gameObject.tag == "Bullet")
+        {
+            if (_size > 0)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Asteroid asteroid = Instantiate(this);
+                    asteroid.SetMaxSpeed(MaxSpeed * 2);
+                    asteroid.Init(_size - 1);
+                }
+            }
+            Destroy(gameObject);
+        }
     }
 }

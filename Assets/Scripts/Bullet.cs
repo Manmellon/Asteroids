@@ -21,4 +21,12 @@ public class Bullet : MovingObject
         SetSpeedVector(direction * MaxSpeed);
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
+        {
+            Destroy(gameObject);
+        }
+    }
+
 }
