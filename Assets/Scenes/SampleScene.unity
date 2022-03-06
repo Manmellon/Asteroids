@@ -621,3 +621,64 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &4596811509121897311
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319732296, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508319855294, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: m_Name
+      value: UFO
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596811508332142369, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}
+      propertyPath: _spaceship
+      value: 
+      objectReference: {fileID: 1259218233}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 08471b55f5e054546b5dd0025b1fe4a3, type: 3}

@@ -15,8 +15,11 @@ public class GameManager : MonoBehaviour
     {
         _instance = this as GameManager;
 
-        Asteroid asteroid = Instantiate(_asteroidPrefab);
-        asteroid.Init(1);
+        for (int i=0; i<5; i++)
+        {
+            Asteroid asteroid = Instantiate(_asteroidPrefab);
+            asteroid.Init(1);
+        }
     }
 
     // Update is called once per frame

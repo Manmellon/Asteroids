@@ -45,10 +45,13 @@ public class Asteroid : MovingObject
         Destroy(_collider);
         _collider = gameObject.AddComponent<BoxCollider2D>();
 
-        float angle = Random.Range(0.0f, 360.0f);
-        Vector3 randomDirection = Quaternion.AngleAxis(angle, Vector3.forward) * Vector3.up;
+        float movingAngle = Random.Range(0.0f, 360.0f);
+        Vector3 randomDirection = Quaternion.AngleAxis(movingAngle, Vector3.forward) * Vector3.up;
         //Debug.Log(randomDirection);
         SetSpeedVector(randomDirection * MaxSpeed);
+
+        float rotationAngle = Random.Range(0.0f, 360.0f);
+        transform.Rotate(Vector3.forward, rotationAngle);
     }
 
     private void OnCollisionEnter2D(Collision2D other)
