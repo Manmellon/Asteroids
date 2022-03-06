@@ -5,6 +5,8 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     [SerializeField] private float _maxSpeed;
+    public float MaxSpeed => _maxSpeed;
+
     [SerializeField] private float _minSpeed;
 
     //[SerializeField] private float _speed;
@@ -13,11 +15,18 @@ public class MovingObject : MonoBehaviour
     [SerializeField] private float _maxAccel;
     [SerializeField] private float _maxRotation;
 
+    [SerializeField] private Rigidbody2D _rigidbody;
+
+    private void Awake()
+    {
+        _rigidbody = GetComponent<Rigidbody2D>();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        //transform.position += transform.up * _speed * Time.fixedDeltaTime;
-        transform.position += _speedVector * Time.fixedDeltaTime;
+        //transform.position += _speedVector * Time.fixedDeltaTime;
+        _rigidbody.MovePosition(transform.position + _speedVector * Time.fixedDeltaTime);
     }
 
     private void LimitSpeed()
@@ -35,6 +44,13 @@ public class MovingObject : MonoBehaviour
 
         _speedVector.Normalize();
         _speedVector *= _speed;
+    }
+
+    public void SetSpeedVector(Vector3 newSpeedVector)
+    {
+        _speedVector = newSpeedVector;
+
+        LimitSpeed();
     }
 
     public void AccelToCurrentDirection(float acceleration)
@@ -56,5 +72,6 @@ public class MovingObject : MonoBehaviour
     public void Rotate(float angle)
     {
         transform.Rotate(Vector3.forward, angle * _maxRotation);
+        //_rigidbody.MoveRotation(angle * _maxRotation);
     }
 }

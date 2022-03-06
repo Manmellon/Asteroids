@@ -13,15 +13,10 @@ public class Spaceship : MovingObject
 
     private InputAction _moveAction;
 
-    private void Awake()
-    {
-        _moveAction = _playerInput.actions["Move"];
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-
+        _moveAction = _playerInput.actions["Move"];
     }
 
     // Update is called once per frame
@@ -49,6 +44,19 @@ public class Spaceship : MovingObject
     }
     
     public void ControlsMove(InputAction.CallbackContext context)
+    {
+        
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
+        {
+            GameManager.Instance.GameOver();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         
     }

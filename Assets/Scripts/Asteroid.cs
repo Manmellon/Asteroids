@@ -17,6 +17,11 @@ public class Asteroid : MovingObject
         _spriteRenderer.sprite = _asteroidSprites[r];
 
         _collider = gameObject.AddComponent<BoxCollider2D>();
+
+        float angle = Random.Range(0.0f, 360.0f);
+        Vector3 randomDirection = Quaternion.AngleAxis(angle, Vector3.forward) * Vector3.up;
+        //Debug.Log(randomDirection);
+        SetSpeedVector(randomDirection * MaxSpeed);
     }
 
     // Update is called once per frame
