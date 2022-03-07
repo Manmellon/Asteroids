@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Asteroid _asteroidPrefab;
 
+    private int _points;
+
     // Start is called before the first frame update
     void Start()
     {

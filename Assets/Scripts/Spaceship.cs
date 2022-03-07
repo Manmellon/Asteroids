@@ -22,6 +22,11 @@ public class Spaceship : MovingObject
     private const float LASER_DISTANCE = 100.0f;
     private const float LASER_DISAPPEAR_TIME = 0.1f;
 
+    private const float LASER_CHARGE_TIME = 5.0f;
+    private const int LASER_MAX_SHOTS_COUNT = 3;
+
+    [SerializeField] private int _laserShotsCount;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +36,8 @@ public class Spaceship : MovingObject
 
         _fireAction.performed += (context) => { Fire(context); };
         _laserAction.performed += (context) => { Laser(context); };
+
+        Init();
     }
 
     // Update is called once per frame
@@ -56,7 +63,12 @@ public class Spaceship : MovingObject
 
         Rotate(- moveActionVector.x);
     }
-    
+
+    public void Init()
+    {
+        _laserShotsCount = LASER_MAX_SHOTS_COUNT;
+    }
+
     public void Fire(InputAction.CallbackContext context)
     {
         Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
@@ -65,7 +77,12 @@ public class Spaceship : MovingObject
 
     public void Laser(InputAction.CallbackContext context)
     {
+        if (_laserShotsCount <= 0) return;
         //Debug.Log("Laser");
+        _laserShotsCount--;
+
+        StopCoroutine("RechargeLaser");
+        StartCoroutine("RechargeLaser");
 
         _lineRenderer.enabled = true;
         _lineRenderer.SetPosition(0, transform.position);
@@ -77,7 +94,7 @@ public class Spaceship : MovingObject
 
         for (int i = 0; i < hits.Length; i++)
         {
-            Debug.Log(hits[i].collider.tag);
+            //Debug.Log(hits[i].collider.tag);
             if (hits[i].collider.tag == "Asteroid" || hits[i].collider.tag == "UFO")
             {
                 Destroy(hits[i].collider.gameObject);
@@ -89,6 +106,16 @@ public class Spaceship : MovingObject
     {
         yield return new WaitForSeconds(LASER_DISAPPEAR_TIME);
         _lineRenderer.enabled = false;
+    }
+
+    private IEnumerator RechargeLaser()
+    {
+        yield return new WaitForSeconds(LASER_CHARGE_TIME);
+        _laserShotsCount++;
+        if (_laserShotsCount < LASER_MAX_SHOTS_COUNT)
+        {
+            StartCoroutine("RechargeLaser");
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
