@@ -58,6 +58,11 @@ public class MovingObject : MonoBehaviour
         LimitSpeed();
     }
 
+    public Vector3 GetSpeedVector()
+    {
+        return _speedVector;
+    }
+
     public void AccelToCurrentDirection(float acceleration)
     {
         float _speed = _speedVector.magnitude;

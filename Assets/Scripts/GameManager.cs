@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    private static GameManager _instance;
+    //private static GameManager _instance;
 
-    public static GameManager Instance => _instance;
+    //public static GameManager Instance => _instance;
 
     [SerializeField] Asteroid _asteroidPrefab;
 
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _instance = this as GameManager;
+        //_instance = this as GameManager;
 
         for (int i=0; i<5; i++)
         {

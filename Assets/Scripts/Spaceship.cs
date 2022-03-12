@@ -19,13 +19,15 @@ public class Spaceship : MovingObject
     private InputAction _fireAction;
     private InputAction _laserAction;
 
-    private const float LASER_DISTANCE = 100.0f;
-    private const float LASER_DISAPPEAR_TIME = 0.1f;
+    public const float LASER_DISTANCE = 100.0f;
+    public const float LASER_DISAPPEAR_TIME = 0.1f;
 
-    private const float LASER_CHARGE_TIME = 5.0f;
-    private const int LASER_MAX_SHOTS_COUNT = 3;
+    public const float LASER_CHARGE_TIME = 5.0f;
+    public const int LASER_MAX_SHOTS_COUNT = 3;
 
     [SerializeField] private int _laserShotsCount;
+
+    private float _startRechargeLaserTime;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +71,33 @@ public class Spaceship : MovingObject
         _laserShotsCount = LASER_MAX_SHOTS_COUNT;
     }
 
+    public Vector3 GetCoords()
+    {
+        return transform.position;
+    }
+
+    public float GetAngle()
+    {
+        return transform.rotation.eulerAngles.z;
+    }
+
+    public int GetLaserCharges()
+    {
+        return _laserShotsCount;
+    }
+
+    public float GetLaserLeftTime()
+    {
+        if (_laserShotsCount >= LASER_MAX_SHOTS_COUNT)
+        {
+            return 0.0f;
+        }
+        else
+        {
+            return LASER_CHARGE_TIME + _startRechargeLaserTime - Time.time;
+        }
+    }
+
     public void Fire(InputAction.CallbackContext context)
     {
         Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
@@ -110,7 +139,10 @@ public class Spaceship : MovingObject
 
     private IEnumerator RechargeLaser()
     {
+        _startRechargeLaserTime = Time.time;
+
         yield return new WaitForSeconds(LASER_CHARGE_TIME);
+
         _laserShotsCount++;
         if (_laserShotsCount < LASER_MAX_SHOTS_COUNT)
         {
