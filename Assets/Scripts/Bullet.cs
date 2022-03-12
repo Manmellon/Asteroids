@@ -26,6 +26,7 @@ public class Bullet : MovingObject
         if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
         {
             Destroy(gameObject);
+            GameManager.Instance.AddPoints(1);
         }
     }
 

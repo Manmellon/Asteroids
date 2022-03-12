@@ -127,6 +127,7 @@ public class Spaceship : MovingObject
             if (hits[i].collider.tag == "Asteroid" || hits[i].collider.tag == "UFO")
             {
                 Destroy(hits[i].collider.gameObject);
+                GameManager.Instance.AddPoints(1);
             }
         }
     }

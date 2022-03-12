@@ -11,6 +11,7 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] Asteroid _asteroidPrefab;
 
     private int _points;
+    public int Points => _points;
 
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,10 @@ public class GameManager : Singleton<GameManager>
     public void GameOver()
     {
         Debug.Log("Game Over!");
+    }
+
+    public void AddPoints(int addingPoints)
+    {
+        _points += addingPoints;
     }
 }

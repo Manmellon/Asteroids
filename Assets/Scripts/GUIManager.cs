@@ -11,6 +11,8 @@ public class GUIManager : Singleton<GUIManager>
     [SerializeField] private Text _laserChargeText;
     [SerializeField] private Text _laserTimeText;
 
+    [SerializeField] private Text _pointsText;
+
     [SerializeField] private Spaceship _spaceship;
 
     // Start is called before the first frame update
@@ -33,5 +35,7 @@ public class GUIManager : Singleton<GUIManager>
         _laserChargeText.text = "Laser charges: " + _spaceship.GetLaserCharges() + " / " + Spaceship.LASER_MAX_SHOTS_COUNT;
 
         _laserTimeText.text = "Time left: " + _spaceship.GetLaserLeftTime().ToString("F2");
+
+        _pointsText.text = GameManager.Instance.Points.ToString();
     }
 }
