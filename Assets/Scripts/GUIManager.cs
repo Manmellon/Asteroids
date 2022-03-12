@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GUIManager : Singleton<GUIManager>
 {
+    [SerializeField] private Spaceship _spaceship;
+
     [SerializeField] private Text _coordsText;
     [SerializeField] private Text _angleText;
     [SerializeField] private Text _speedText;
@@ -13,17 +15,23 @@ public class GUIManager : Singleton<GUIManager>
 
     [SerializeField] private Text _pointsText;
 
-    [SerializeField] private Spaceship _spaceship;
+    [SerializeField] private GameObject _gameOverScreen;
+    [SerializeField] private Text _finalScoreText;
+    [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _exitButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _restartButton.onClick.AddListener( () => GameManager.Instance.RestartGame() );
+        _exitButton.onClick.AddListener( () => GameManager.Instance.ExitGame() );
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (! _spaceship.gameObject.activeSelf) return;
+
         Vector3 spaceshipCoords = _spaceship.GetCoords();
         _coordsText.text = "Coords: " + spaceshipCoords.x.ToString("F2") + ", " + spaceshipCoords.y.ToString("F2");
 
@@ -38,4 +46,11 @@ public class GUIManager : Singleton<GUIManager>
 
         _pointsText.text = GameManager.Instance.Points.ToString();
     }
+
+    public void ShowGameOverScreen(bool enable)
+    {
+        _gameOverScreen.SetActive(enable);
+        _finalScoreText.text = GameManager.Instance.Points.ToString() + " points";
+    }
+
 }

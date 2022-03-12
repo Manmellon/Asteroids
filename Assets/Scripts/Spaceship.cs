@@ -68,6 +68,11 @@ public class Spaceship : MovingObject
 
     public void Init()
     {
+        gameObject.SetActive(true);
+
+        transform.position = new Vector3(0, 0, 0);
+        SetSpeedVector(new Vector3(0, 0, 0));
+
         _laserShotsCount = LASER_MAX_SHOTS_COUNT;
     }
 
@@ -155,6 +160,7 @@ public class Spaceship : MovingObject
     {
         if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
         {
+            gameObject.SetActive(false);
             GameManager.Instance.GameOver();
         }
     }

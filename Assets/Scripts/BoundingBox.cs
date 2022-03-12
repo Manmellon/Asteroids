@@ -5,9 +5,11 @@ using UnityEngine;
 public class BoundingBox : MonoBehaviour
 {
     [SerializeField] private Camera Cam;
-    [SerializeField] private BoxCollider2D Box;
 
-    void Start()
+    [SerializeField] private BoxCollider2D _box;
+    public BoxCollider2D Box => _box;
+
+    void Awake()
     {
         var aspect = (float)Screen.width / Screen.height;
         var orthoSize = Cam.orthographicSize;
@@ -15,7 +17,7 @@ public class BoundingBox : MonoBehaviour
         var width = 2.0f * orthoSize * aspect;
         var height = 2.0f * orthoSize;
 
-        Box.size = new Vector2(width, height);
+        _box.size = new Vector2(width, height);
     }
 
     // Update is called once per frame

@@ -18,6 +18,11 @@ public class UFO : MovingObject
         SetSpeedVector((_spaceship.transform.position - transform.position) * MaxSpeed);
     }
 
+    public void Init(Spaceship spaceship)
+    {
+        _spaceship = spaceship;
+    }
+
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.tag == "Bullet")

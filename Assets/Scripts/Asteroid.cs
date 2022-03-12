@@ -43,7 +43,7 @@ public class Asteroid : MovingObject
         }
 
         Destroy(_collider);
-        _collider = gameObject.AddComponent<BoxCollider2D>();
+        _collider = gameObject.AddComponent<CircleCollider2D>();
 
         float movingAngle = Random.Range(0.0f, 360.0f);
         Vector3 randomDirection = Quaternion.AngleAxis(movingAngle, Vector3.forward) * Vector3.up;
@@ -62,7 +62,7 @@ public class Asteroid : MovingObject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Asteroid asteroid = Instantiate(this);
+                    Asteroid asteroid = Instantiate(this, GameManager.Instance.transform);
                     asteroid.SetMaxSpeed(MaxSpeed * 2);
                     asteroid.Init(_size - 1);
                 }
