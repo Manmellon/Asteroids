@@ -47,7 +47,7 @@ public class Asteroid : MovingObject
 
         float movingAngle = Random.Range(0.0f, 360.0f);
         Vector3 randomDirection = Quaternion.AngleAxis(movingAngle, Vector3.forward) * Vector3.up;
-        //Debug.Log(randomDirection);
+
         SetSpeedVector(randomDirection * MaxSpeed);
 
         float rotationAngle = Random.Range(0.0f, 360.0f);

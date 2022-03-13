@@ -72,10 +72,6 @@ public class GameManager : Singleton<GameManager>
             max_y = _boundingBox.Box.bounds.max.y;
         }
 
-
-        //Vector2 random_position = new Vector2(Random.Range(_boundingBox.Box.bounds.min.x, _boundingBox.Box.bounds.max.x),
-        //                                      Random.Range(_boundingBox.Box.bounds.min.y, _boundingBox.Box.bounds.max.y));
-
         Vector2 random_position = new Vector2(Random.Range(min_x, max_x),
                                               Random.Range(min_y, max_y));
         return random_position;

@@ -31,8 +31,6 @@ public class Bullet : MovingObject
         {
             _AddPointsAction(1);
             Destroy(gameObject);
-            //GameManager.Instance.AddPoints(1);
-            
         }
     }
 

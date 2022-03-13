@@ -28,10 +28,6 @@ public class BoundingBox : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        //Debug.Log("EXIT");
-
-        //Debug.Log(collider.transform.position.y + " ? " + Box.bounds.max.y);
-
         if (collider.gameObject.tag == "Bullet")
         {
             Destroy(collider.gameObject);

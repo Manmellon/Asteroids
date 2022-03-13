@@ -42,20 +42,15 @@ public class Spaceship : MovingObject
 
         _fireAction.performed += (context) => { Fire(context); };
         _laserAction.performed += (context) => { Laser(context); };
-
-        //Init();
     }
 
     // Update is called once per frame
     void Update()
     {
         Vector2 moveActionVector = _moveAction.ReadValue<Vector2>();
-        //Debug.Log(moveActionVector);
 
         if (moveActionVector.y > 0.0f)
         {
-            //Accel(moveActionVector.y);
-            //Debug.Log(transform.up * moveActionVector.y);
             Accel(transform.up * moveActionVector.y);
 
             _animator.SetBool("EnabledEngine", true);
@@ -122,7 +117,7 @@ public class Spaceship : MovingObject
     public void Laser(InputAction.CallbackContext context)
     {
         if (_laserShotsCount <= 0) return;
-        //Debug.Log("Laser");
+
         _laserShotsCount--;
 
         StopCoroutine("RechargeLaser");
@@ -138,11 +133,9 @@ public class Spaceship : MovingObject
 
         for (int i = 0; i < hits.Length; i++)
         {
-            //Debug.Log(hits[i].collider.tag);
             if (hits[i].collider.tag == "Asteroid" || hits[i].collider.tag == "UFO")
             {
                 Destroy(hits[i].collider.gameObject);
-                //GameManager.Instance.AddPoints(1);
                 _AddPointsAction(1);
             }
         }
@@ -173,8 +166,6 @@ public class Spaceship : MovingObject
         {
             _GameOverAction();
             gameObject.SetActive(false);
-            //GameManager.Instance.GameOver();
-            
         }
     }
 }
