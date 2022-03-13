@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Events;
 
 public class Spaceship : MovingObject
 {
@@ -29,6 +30,9 @@ public class Spaceship : MovingObject
 
     private float _startRechargeLaserTime;
 
+    private UnityAction<int> _AddPointsAction;
+    private UnityAction _GameOverAction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +43,7 @@ public class Spaceship : MovingObject
         _fireAction.performed += (context) => { Fire(context); };
         _laserAction.performed += (context) => { Laser(context); };
 
-        Init();
+        //Init();
     }
 
     // Update is called once per frame
@@ -66,8 +70,11 @@ public class Spaceship : MovingObject
         Rotate(- moveActionVector.x);
     }
 
-    public void Init()
+    public void Init(UnityAction<int> AddPointsAction, UnityAction GameOverAction)
     {
+        _AddPointsAction = AddPointsAction;
+        _GameOverAction = GameOverAction;
+
         gameObject.SetActive(true);
 
         transform.position = new Vector3(0, 0, 0);
@@ -109,7 +116,7 @@ public class Spaceship : MovingObject
     public void Fire(InputAction.CallbackContext context)
     {
         Bullet bullet = Instantiate(_bulletPrefab, transform.position, transform.rotation);
-        bullet.Init(transform.up);
+        bullet.Init(_AddPointsAction, transform.up);
     }
 
     public void Laser(InputAction.CallbackContext context)
@@ -135,7 +142,8 @@ public class Spaceship : MovingObject
             if (hits[i].collider.tag == "Asteroid" || hits[i].collider.tag == "UFO")
             {
                 Destroy(hits[i].collider.gameObject);
-                GameManager.Instance.AddPoints(1);
+                //GameManager.Instance.AddPoints(1);
+                _AddPointsAction(1);
             }
         }
     }
@@ -163,8 +171,10 @@ public class Spaceship : MovingObject
     {
         if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
         {
+            _GameOverAction();
             gameObject.SetActive(false);
-            GameManager.Instance.GameOver();
+            //GameManager.Instance.GameOver();
+            
         }
     }
 }

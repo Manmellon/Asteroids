@@ -11,6 +11,7 @@ public class Asteroid : MovingObject
     [SerializeField] Collider2D _collider;
 
     private int _size;
+    private Transform _parent;
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +25,10 @@ public class Asteroid : MovingObject
         
     }
 
-    public void Init(int size)
+    public void Init(Transform parent, int size)
     {
-        //int r_size = Random.Range(0, 2);
-        //_size = r_size;
         _size = size;
+        _parent = parent;
 
         if (_size > 0)
         {
@@ -62,9 +62,9 @@ public class Asteroid : MovingObject
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    Asteroid asteroid = Instantiate(this, GameManager.Instance.transform);
+                    Asteroid asteroid = Instantiate(this, _parent);
                     asteroid.SetMaxSpeed(MaxSpeed * 2);
-                    asteroid.Init(_size - 1);
+                    asteroid.Init(_parent, _size - 1);
                 }
             }
             Destroy(gameObject);

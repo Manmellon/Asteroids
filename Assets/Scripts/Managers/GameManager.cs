@@ -35,7 +35,7 @@ public class GameManager : Singleton<GameManager>
     {
         _points = 0;
 
-        _spaceship.Init();
+        _spaceship.Init(AddPoints, GameOver);
 
         foreach (Transform child in transform)
         {
@@ -86,7 +86,7 @@ public class GameManager : Singleton<GameManager>
         for (int i = 0; i < 5; i++)
         {
             Asteroid asteroid = Instantiate(_asteroidPrefab, ChooseRandomPosition(), _asteroidPrefab.transform.rotation, transform);
-            asteroid.Init(1);
+            asteroid.Init(transform, 1);
         }
     }
 

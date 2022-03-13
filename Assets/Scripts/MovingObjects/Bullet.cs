@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bullet : MovingObject
 {
+    private UnityAction<int> _AddPointsAction;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,8 +19,9 @@ public class Bullet : MovingObject
         
     }
 
-    public void Init(Vector3 direction)
+    public void Init(UnityAction<int> AddPointsAction, Vector3 direction)
     {
+        _AddPointsAction = AddPointsAction;
         SetSpeedVector(direction * MaxSpeed);
     }
 
@@ -25,8 +29,10 @@ public class Bullet : MovingObject
     {
         if (other.gameObject.tag == "Asteroid" || other.gameObject.tag == "UFO")
         {
+            _AddPointsAction(1);
             Destroy(gameObject);
-            GameManager.Instance.AddPoints(1);
+            //GameManager.Instance.AddPoints(1);
+            
         }
     }
 
