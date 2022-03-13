@@ -2142,8 +2142,8 @@ MonoBehaviour:
   _maxSpeed: 8
   _minSpeed: 0
   _speedVector: {x: 0, y: 0, z: 0}
-  _maxAccel: 0.01
-  _maxRotation: 0.5
+  _maxAccel: 0.08
+  _maxRotation: 4
   _rigidbody: {fileID: 3007574720870321734}
   _playerInput: {fileID: 838582018}
   _slowdown: 0
