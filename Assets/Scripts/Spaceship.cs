@@ -74,6 +74,9 @@ public class Spaceship : MovingObject
         SetSpeedVector(new Vector3(0, 0, 0));
 
         _laserShotsCount = LASER_MAX_SHOTS_COUNT;
+
+        _animator.SetBool("EnabledEngine", false);
+        _lineRenderer.enabled = false;
     }
 
     public Vector3 GetCoords()

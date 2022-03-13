@@ -46,14 +46,46 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine("SpawnUFO");
     }
 
+    private Vector2 ChooseRandomPosition()
+    {
+        float min_x, max_x, min_y, max_y;
+
+        if (_spaceship.transform.position.x > 0)
+        {
+            min_x = _boundingBox.Box.bounds.min.x;
+            max_x = 0;
+        }
+        else
+        {
+            min_x = 0;
+            max_x = _boundingBox.Box.bounds.max.x;
+        }
+
+        if (_spaceship.transform.position.y > 0)
+        {
+            min_y = _boundingBox.Box.bounds.min.y;
+            max_y = 0;
+        }
+        else
+        {
+            min_y = 0;
+            max_y = _boundingBox.Box.bounds.max.y;
+        }
+
+
+        //Vector2 random_position = new Vector2(Random.Range(_boundingBox.Box.bounds.min.x, _boundingBox.Box.bounds.max.x),
+        //                                      Random.Range(_boundingBox.Box.bounds.min.y, _boundingBox.Box.bounds.max.y));
+
+        Vector2 random_position = new Vector2(Random.Range(min_x, max_x),
+                                              Random.Range(min_y, max_y));
+        return random_position;
+    }
+
     private void SpawnWave()
     {
         for (int i = 0; i < 5; i++)
         {
-            Vector2 random_position = new Vector2(Random.Range(_boundingBox.Box.bounds.min.x, _boundingBox.Box.bounds.max.x),
-                                              Random.Range(_boundingBox.Box.bounds.min.y, _boundingBox.Box.bounds.max.y));
-
-            Asteroid asteroid = Instantiate(_asteroidPrefab, random_position, _asteroidPrefab.transform.rotation, transform);
+            Asteroid asteroid = Instantiate(_asteroidPrefab, ChooseRandomPosition(), _asteroidPrefab.transform.rotation, transform);
             asteroid.Init(1);
         }
     }
@@ -71,10 +103,7 @@ public class GameManager : Singleton<GameManager>
         float random_time = Random.Range(MIN_UFO_SPAWN_TIME, MAX_UFO_SPAWN_TIME);
         yield return new WaitForSeconds(random_time);
 
-        Vector2 random_position = new Vector2(Random.Range(_boundingBox.Box.bounds.min.x, _boundingBox.Box.bounds.max.x), 
-                                              Random.Range(_boundingBox.Box.bounds.min.y, _boundingBox.Box.bounds.max.y));
-
-        UFO ufo = Instantiate(_ufoPrefab, random_position, _ufoPrefab.transform.rotation, transform);
+        UFO ufo = Instantiate(_ufoPrefab, ChooseRandomPosition(), _ufoPrefab.transform.rotation, transform);
         ufo.Init(_spaceship);
 
         StartCoroutine("SpawnUFO");
